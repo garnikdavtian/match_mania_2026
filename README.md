@@ -150,7 +150,9 @@ Our Elo implementation extends the classical chess Elo system with basketball-sp
 | Season Regression | 0.75 | 75% carryover, 25% regression to mean (1500) |
 | Base Rating | 1500.0 | Standard Elo baseline |
 **Margin of Victory Multiplier:**
-$$\text{MOV}_{\text{mult}} = \ln(\text{MOV} + 1) \times \frac{2.2}{0.001 \times |\Delta_{\text{Elo}}| + 2.2}$$
+```math
+\text{MOV}_{\text{mult}} = \ln(\text{MOV} + 1) \times \frac{2.2}{0.001 \times |\Delta_{\text{Elo}}| + 2.2}
+```
 This serves dual purposes:
 1. **Logarithmic MOV scaling** prevents blowout wins from having disproportionate influence
 2. **Auto-correlation correction** reduces the update magnitude when the Elo gap already predicts a large margin, preventing rating inflation
@@ -160,7 +162,10 @@ where $E = \frac{1}{1 + 10^{(R_B - R_A - \text{HCA})/400}}$ is the expected scor
 ### 4.2 Simple Rating System (SRS)
 The SRS is an iterative fixed-point algorithm that decomposes team strength into offensive contribution and strength-of-schedule:
 1. Initialize: $r_t^{(0)} = \overline{\text{MOV}}_t$
-2. Iterate: $r_t^{(k+1)} = \frac{1}{|\mathcal{G}_t|} \sum_{g \in \mathcal{G}_t} (\text{MOV}_g + r_{\text{opp}(g)}^{(k)})$
+2. Iterate:
+```math
+r_t^{(k+1)} = \frac{1}{|\mathcal{G}_t|} \sum_{g \in \mathcal{G}_t} (\text{MOV}_g + r_{\text{opp}(g)}^{(k)})
+```
 3. Converge after 100 iterations
 This is equivalent to solving the linear system $\mathbf{r} = \overline{\text{MOV}} + \mathbf{S} \cdot \mathbf{r}$, where $\mathbf{S}$ is the schedule matrix. The SRS is analogous to the system used by Basketball-Reference and captures "who you played" effects.
 ---
