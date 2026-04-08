@@ -149,6 +149,7 @@ Our Elo implementation extends the classical chess Elo system with basketball-sp
 | Home Court Advantage | 65.0 Elo points | NCAA-calibrated HCA |
 | Season Regression | 0.75 | 75% carryover, 25% regression to mean (1500) |
 | Base Rating | 1500.0 | Standard Elo baseline |
+
 **Margin of Victory Multiplier:**
 ```math
 \text{MOV}_{\text{mult}} = \ln(\text{MOV} + 1) \times \frac{2.2}{0.001 \times |\Delta_{\text{Elo}}| + 2.2}
